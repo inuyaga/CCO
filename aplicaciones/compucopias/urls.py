@@ -5,4 +5,5 @@ app_name='compucopias'
 
 urlpatterns = [
     path('', views.index.as_view(), name='inicio'),
+    path('registro/evento/maestros/', views.RegistroEvento.as_view(), name='registro'),
 ]

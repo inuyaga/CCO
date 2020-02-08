@@ -1,0 +1,46 @@
+{% extends 'compucopias/base.html' %}
+
+
+{% block contenido %}
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <section class="section-bg">
+        <div class="footer-top">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form">
+
+                        <h4>REGISTRO AL EVENTO</h4>
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %} role="alert">
+                            {{message}}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        <form action="" method="post" role="form" class="contactForm">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                            <div class="text-center"><button class="btn btn-success" type="submit" title="Send Message">Registrar</button></div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock contenido %}
+
+
+{% block script %}
+    <script>
+        $('#id_re_sede').val('{{view.request.GET.event}}');
+        $("#id_re_sede").prop("readonly", true);
+    </script>
+{% endblock script %}
+    

@@ -1,11 +1,12 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, CreateView
 from aplicaciones.galeria.models import Galeria
-from aplicaciones.compucopias.forms import CorreoForm
+from aplicaciones.compucopias.forms import CorreoForm, RegistroEventoForm
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib import messages
-from aplicaciones.compucopias.models import Evento, Marca
+from aplicaciones.compucopias.models import Evento, Marca, RegistroEvento
 
 class index(TemplateView):
     template_name = "compucopias/base.html"
@@ -25,5 +26,12 @@ class index(TemplateView):
             messages.warning(request, 'Error al guardar')
         url=reverse('compucopias:inicio')
         return redirect(url)
+
+
+class RegistroEvento(CreateView):
+    model = RegistroEvento
+    form_class = RegistroEventoForm
+    template_name = "compucopias/registro.html"
+    success_url = reverse_lazy('compucopias:inicio')
 
     

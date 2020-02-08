@@ -1,5 +1,12 @@
 from django.db import models
-
+SE_ENTERO=(
+        (1, 'SITIO WEB'),
+        (2, 'SUCURSAL'),
+        (3, 'REDES SOCIALES'),
+        (4, 'ANUNCIO'),
+        (5, 'OTRO'),
+        )
+NO_PARTICIPACION=((1, 'NO'), (2, 'SI'))
 class Departamento(models.Model):
     dp_nombre=models.CharField('Nombre Departamento',  max_length=100)
     def __str__(self):
@@ -38,6 +45,21 @@ class Marca(models.Model):
         return self.marca_nombre
 
 
+class RegistroEvento(models.Model):
+    re_id=models.BigAutoField(primary_key=True)
+    re_sede=models.ForeignKey(Evento, on_delete=models.CASCADE, verbose_name='Sede', blank=False, null=True)
+    re_question_participacion=models.IntegerField(verbose_name="¿Primera participacion?", choices=NO_PARTICIPACION)
+    re_q_como_se_entero=models.IntegerField(choices=SE_ENTERO, verbose_name="¿Como se enteró del evento?")
+    re_nombre=models.CharField(max_length=150, verbose_name="Nombre completo")
+    re_telefono=models.CharField(max_length=10, verbose_name="Numero de telefono")
+    re_email=models.EmailField(verbose_name="Correo Electronico")
+    re_nombre_escuela=models.CharField(max_length=250, verbose_name="Nombre de la escuela")
+    re_direccion_escuela=models.CharField(max_length=300, verbose_name="Direccion de escuela")
+    def __str__(self):
+        return "{} {}".format(self.re_nombre, self.re_sede)
 
-
- 
+    def save(self, *args, **kwargs):
+        self.re_nombre = (self.re_nombre).upper()
+        self.re_nombre_escuela = (self.re_nombre_escuela).upper()
+        self.re_direccion_escuela = (self.re_direccion_escuela).upper()
+        return super(RegistroEvento, self).save(*args, **kwargs)

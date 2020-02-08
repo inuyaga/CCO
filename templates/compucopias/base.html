@@ -62,7 +62,7 @@
       <div class="logo float-left">
         <!-- Uncomment below if you prefer to use an image logo -->
         <a href="#intro">
-          <img src="static/img/logo.png" width="200" height="300" alt="Compucopias, las papelerias mejor surtidas"
+          <img src="{% static 'img/logo.png' %}" width="200" height="300" alt="Compucopias, las papelerias mejor surtidas"
             data-logofixed="images/icons/logo2.png">
         </a>
       </div>
@@ -93,6 +93,12 @@
     </div>
   </header><!-- #header -->
 
+
+  
+  {% block contenido %}
+    
+  
+    
   <!--==========================
     Intro Section
   ============================-->
@@ -264,11 +270,11 @@
 
               <div class="container">
                 <div class="row">
-                  <div class="col-md-12 col-lg-12">
-                    <div class="p-t-80 p-b-150 bo5-r h-full p-r-50 p-r-0-md bo-none-md">
-
-
-                      {% for item in even_nombre %}
+                  
+                  
+                  {% for item in even_nombre %}
+                    <div class="col-md-6 col-lg-6">
+                      <div class="p-t-80 p-b-150 bo5-r h-full p-r-50 p-r-0-md bo-none-md">
 
 
 
@@ -300,16 +306,17 @@
                             <span><strong>Lugar</strong>: {{item.event_ubicacion}} 
                              <br><strong>Hora</strong>: {{item.event_hora_inicio}} a {{item.event_hora_fin}}
                               <br><strong>{{item.event_especificacion}}</strong></span>
+                              <a class="btn btn-success" href="{% url 'compucopias:registro' %}?event={{item.id}}" role="button">Registrar</a>
                           </div>
                         </div>
 
                       </div>
                       <br>
                       <br>
-                      {% endfor %}
-
                     </div>
                   </div>
+                      {% endfor %}
+
 
                   <!-- <div class="col-md-4 col-lg-3">
                     <div class="sidebar2 p-t-80 p-b-80 p-l-20 p-l-0-md p-t-0-md">
@@ -396,7 +403,7 @@
   
         </div>
       </section>
-
+      
     <!--==========================
     Footer
   ============================-->
@@ -481,6 +488,9 @@
         </div>
       </div>
       </div>
+
+      {% endblock contenido %}
+
       <div class="container">
         <div class="copyright">
           Aviso de privacidad | Compucopias &copy; 2018 Todos los derechos reservados | Sistemas Compucopias
@@ -509,6 +519,12 @@
 
     <!-- Template Main Javascript File -->
     <script src="{% static 'js/main.js' %}"></script>
+    
+    
+    {% block script %}
+      
+    {% endblock script %}
+      
 
 </body>
 
