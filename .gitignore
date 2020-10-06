@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 env_cco/
 0*.py
+media/*
