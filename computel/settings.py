@@ -28,7 +28,7 @@ SECRET_KEY = 'i(#1)6^h383kfid1i0df2c=y3^vtrr)0p-c00c@_t^ppp_ooz6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.compucopias.com.mx', 'compucopias.com.mx', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'aplicaciones.galeria',
     'aplicaciones.compucopias',
+    'aplicaciones.pedido',
+    'rest_framework', #<<-- aplicacion para crear apis
+    'rest_framework.authtoken', #<<-- aplicacion para login en apps
 ]
 
 
