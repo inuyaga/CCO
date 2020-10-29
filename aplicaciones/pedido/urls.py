@@ -23,5 +23,6 @@ urlpatterns = [
     path('v1/domicilio/update/user/<int:pk>/', PedidoView.DomicilioUpdateUserView.as_view(), name='domicilio_update'),
     path('v1/domicilio/update/<int:pk>/', PedidoView.DomicilioUpdateView.as_view(), name='domicilio_update_v'),
     path('v1/finalizar/compra/', PedidoView.FinalizarCompraView.as_view(), name='end_compra'),
+    path('v1/mis/compras/', PedidoView.MisComprasView.as_view(), name='mis_compras'),
     
 ]

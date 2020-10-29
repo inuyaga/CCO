@@ -260,3 +260,15 @@ class FinalizarCompraView(APIView):
             'idCompraWeb':cw.cw_id
         }
         return Response(content, status=status.HTTP_201_CREATED)
+
+
+
+class MisComprasView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    # permission_classes = [AllowAny]
+        
+    def get(self, request):
+        compras = CompraWeb.objects.filter(cw_cliente=request.user)
+        serializer = MisComprasSerializer(compras, many=True, context={'request': request})
+        return Response(serializer.data, status=status.HTTP_200_OK)

@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from aplicaciones.pedido.models import Producto, Area, Subcategoria, Linea, Domicilio, Detalle_Compra_Web
+from aplicaciones.pedido.models import Producto, Area, Subcategoria, Linea, Domicilio, Detalle_Compra_Web, CompraWeb
 
 from django.contrib.auth.models import User
 from django.utils.formats import localize
@@ -131,3 +131,26 @@ class Detalle_Compra_WebCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Detalle_Compra_Web
         fields = '__all__'
+
+
+class MisComprasSerializer(serializers.ModelSerializer):
+    cw_domicilio = DomicilioSerializer()
+    cw_fecha = HoraFormat1n8(read_only=True)
+    cw_status = serializers.CharField(source='get_cw_status_display')
+    cw_tipo_pago = serializers.CharField(source='get_cw_tipo_pago_display')
+    cw_cliente = serializers.StringRelatedField()
+    itemsCompras = Detalle_Compra_WebSerializer(many=True)
+    class Meta:
+        model = CompraWeb
+        fields = [
+            'cw_id',
+            'cw_fecha',
+            'cw_cliente',
+            'cw_status',
+            'cw_domicilio',
+            'cw_numero_venta',
+            'cw_numero_factura',
+            'cw_tipo_pago',
+            'total_compra',
+            'itemsCompras'
+        ]
